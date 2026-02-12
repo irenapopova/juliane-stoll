@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320" role="img" aria-label="Porträt Platzhalter">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f2d6c6" />
+      <stop offset="50%" stop-color="#e3b7c8" />
+      <stop offset="100%" stop-color="#a9c7ff" />
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="320" rx="160" fill="url(#bg)" />
+  <circle cx="160" cy="132" r="70" fill="#f7f7fb" opacity="0.9" />
+  <path d="M88 250c10-44 44-72 72-72s62 28 72 72" fill="#f7f7fb" opacity="0.9" />
+  <circle cx="130" cy="120" r="10" fill="#23263a" opacity="0.5" />
+  <circle cx="190" cy="120" r="10" fill="#23263a" opacity="0.5" />
+  <path d="M128 155c18 18 46 18 64 0" stroke="#23263a" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.45" />
+  <rect width="320" height="120" rx="60" y="0" fill="url(#shine)" />
+</svg>

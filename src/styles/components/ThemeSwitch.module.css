@@ -1,0 +1,24 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.btn:hover {
+  filter: brightness(1.03);
+}
+
+.icon {
+  font-size: 1.05rem;
+}
+
+.text {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}

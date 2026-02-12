@@ -1,0 +1,59 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 14px var(--space-lg);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  font-family: var(--font-signature);
+  font-size: 1.25rem;
+}
+
+.brandLink {
+  color: var(--color-text);
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.link {
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  color: var(--color-text);
+}
+
+.link:hover {
+  background: var(--color-card);
+  border-color: var(--color-border);
+}
+
+/* Vue Router adds this class */
+:global(.active) {
+  background: var(--color-accent);
+  border-color: transparent;
+  color: var(--color-text);
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+}
