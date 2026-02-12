@@ -13,7 +13,7 @@ html, body, #app {
 
 body {
   margin: 0;
-  background: var(--color-bg);
+  background: var(--color-main);
   color: var(--color-text);
   font-family: var(--font-body);
   line-height: 1.5;
@@ -90,7 +90,7 @@ a {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  background: var(--color-bg); /* ensures middle is same bg */
+  background: var(--color-main);
 }
 
 .container {
