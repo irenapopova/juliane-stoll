@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import s from "../styles/pages/gallery.module.css";
 import ImageSlider from "../components/ImageSlider.vue";
 
@@ -13,47 +13,87 @@ const images = Object.entries(modules)
     const file = path.split("/").pop() || "";
     const name = file.replace(/\.[^.]+$/, "");
     const label = name.replace(/[-_]+/g, " ").trim();
-    const rawCategory = name.split(/[-_]/)[0] || "Allgemein";
-    const category =
-      rawCategory.charAt(0).toUpperCase() + rawCategory.slice(1).toLowerCase();
+    const lower = name.toLowerCase();
+
+    let category = "Adventure";
+    if (lower.includes("garden")) category = "Garden";
+    else if (lower.includes("natur")) category = "Natur";
+
     return {
       src,
-      name: label || "Moment",
+      baseName: label || "Moment",
       category,
     };
   })
-  .sort((a, b) => a.name.localeCompare(b.name));
+  .sort((a, b) => a.baseName.localeCompare(b.baseName));
+
+const sliderImages = images.slice(0, 8);
+
+const categoryLabels = {
+  Natur: "Naturmoment",
+  Garden: "Gartenimpression",
+  Adventure: "Abenteuerblick",
+};
+
+const labeledImages = images.map((image) => ({
+  ...image,
+  name: `${categoryLabels[image.category] || "Moment"}`,
+}));
 
 const sizeCycle = ["wide", "tall", "square", "wide", "square", "tall"];
 
 const placeholders = Array.from({ length: 8 }, (_, index) => ({
   src: "",
   name: `Platzhalter ${index + 1}`,
-  category: "Beispiel",
+  category: "Adventure",
   placeholder: true,
 }));
 
 const categories = computed(() => {
-  const set = new Set(images.map((image) => image.category));
+  const set = new Set(labeledImages.map((image) => image.category));
   return ["Alle", ...Array.from(set).sort()];
 });
 
 const activeCategory = ref("Alle");
+const lightboxImage = ref(null);
 
 const filteredImages = computed(() => {
-  if (activeCategory.value === "Alle") return images;
-  return images.filter((image) => image.category === activeCategory.value);
+  if (activeCategory.value === "Alle") return labeledImages;
+  return labeledImages.filter((image) => image.category === activeCategory.value);
 });
 
 const displayImages = computed(() =>
-  images.length ? filteredImages.value : placeholders,
+  labeledImages.length ? filteredImages.value : placeholders,
 );
+
+function openLightbox(image) {
+  if (image.placeholder) return;
+  lightboxImage.value = image;
+}
+
+function closeLightbox() {
+  lightboxImage.value = null;
+}
+
+function handleKey(event) {
+  if (event.key === "Escape") {
+    closeLightbox();
+  }
+}
+
+onMounted(() => {
+  window.addEventListener("keydown", handleKey);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("keydown", handleKey);
+});
 </script>
 
 <template>
   <section :class="s.page">
-    <div v-if="images.length" :class="s.sliderWrap">
-      <ImageSlider :images="images" compact class="noRadius" />
+    <div v-if="sliderImages.length" :class="s.sliderWrap">
+      <ImageSlider :images="sliderImages" compact class="noRadius" />
     </div>
 
     <div :class="s.hero">
@@ -65,15 +105,15 @@ const displayImages = computed(() =>
           Atmosphäre, in der Entwicklung, Kreativität und Beziehung wachsen.
         </p>
       </div>
-      <div :class="s.heroCard">
+      <div :class="[s.heroCard, s.rainbowCard]">
         <p :class="s.heroQuote">
           Natur, Struktur und Nähe – ein Raum, in dem Kinder sich sicher fühlen
           und entfalten können.
         </p>
         <div :class="s.heroMeta">
-          <span>Ressourcenorientiert</span>
-          <span>Beziehungsstark</span>
-          <span>Kreativ</span>
+          <span :class="s.metaChip">Ressourcenorientiert</span>
+          <span :class="s.metaChip">Beziehungsstark</span>
+          <span :class="s.metaChip">Kreativ</span>
         </div>
       </div>
     </div>
@@ -96,10 +136,14 @@ const displayImages = computed(() =>
       </div>
 
       <div :class="s.gallery">
-        <figure
+        <button
           v-for="(image, index) in displayImages"
           :key="image.src || image.name"
           :class="[s.tile, s[sizeCycle[index % sizeCycle.length]], { [s.placeholder]: image.placeholder }]"
+          type="button"
+          :aria-label="image.placeholder ? 'Platzhalter' : image.name"
+          :disabled="image.placeholder"
+          @click="openLightbox(image)"
         >
           <img
             v-if="!image.placeholder"
@@ -113,9 +157,22 @@ const displayImages = computed(() =>
           </div>
           <figcaption v-if="!image.placeholder" :class="s.caption">{{ image.name }}</figcaption>
           <span v-if="!image.placeholder" :class="s.categoryTag">{{ image.category }}</span>
-        </figure>
+        </button>
       </div>
     </section>
+
+    <div v-if="lightboxImage" :class="s.lightbox" @click.self="closeLightbox">
+      <div :class="s.lightboxCard" role="dialog" aria-modal="true">
+        <button :class="s.lightboxClose" type="button" aria-label="Schließen" @click="closeLightbox">
+          ×
+        </button>
+        <img :class="s.lightboxImage" :src="lightboxImage.src" :alt="lightboxImage.name" />
+        <div :class="s.lightboxMeta">
+          <h3 :class="s.lightboxTitle">{{ lightboxImage.name }}</h3>
+          <span :class="s.lightboxTag">{{ lightboxImage.category }}</span>
+        </div>
+      </div>
+    </div>
     <div v-if="!images.length" :class="s.empty">
       <h2 :class="s.sectionTitle">Bilder hinzufügen</h2>
       <p :class="s.body">

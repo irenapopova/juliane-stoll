@@ -58,6 +58,28 @@
   padding: var(--space-md);
 }
 
+.sidebarAvatar {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid transparent;
+  margin: 0 auto 16px;
+  display: block;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+  background:
+    linear-gradient(var(--color-bg), var(--color-bg)) padding-box,
+    conic-gradient(
+      from 180deg,
+      #ff7a4a,
+      #ffd166,
+      #06d6a0,
+      #4dabf7,
+      #b197fc,
+      #ff7a4a
+    ) border-box;
+}
+
 .content {
   min-width: 0;
 }

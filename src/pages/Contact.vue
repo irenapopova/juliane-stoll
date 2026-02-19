@@ -2,7 +2,7 @@
 import { RouterLink } from "vue-router";
 import s from "../styles/pages/contact.module.css";
 import ImageSlider from "../components/ImageSlider.vue";
-import portrait from "../assets/juliane-portrait.svg";
+import portrait from "../assets/images/julia-profile.jpg";
 
 const contact = {
   name: "Juliane Stoll",

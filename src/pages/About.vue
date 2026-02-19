@@ -1,6 +1,6 @@
 <script setup>
 import s from "../styles/pages/about.module.css";
-import portrait from "../assets/juliane-portrait.svg";
+import portrait from "../assets/images/julia-profile.jpg";
 import ImageSlider from "../components/ImageSlider.vue";
 
 const modules = import.meta.glob("../assets/images/*.{jpg,jpeg,png,webp,avif}", {
@@ -19,12 +19,14 @@ const images = Object.entries(modules)
     };
   })
   .sort((a, b) => a.name.localeCompare(b.name));
+
+const sliderImages = images.slice(0, 8);
 </script>
 
 <template>
   <section :class="s.page">
-    <div v-if="images.length" :class="s.sliderWrap">
-      <ImageSlider :images="images" compact class="noRadius" />
+    <div v-if="sliderImages.length" :class="s.sliderWrap">
+      <ImageSlider :images="sliderImages" compact class="noRadius" />
     </div>
 
     <div :class="[s.card, s.rainbowLine]">

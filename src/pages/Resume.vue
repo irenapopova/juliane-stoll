@@ -1,9 +1,10 @@
 <script setup>
 import s from "../styles/pages/resume.module.css";
+import portrait from "../assets/images/julia-profile.jpg";
 
 const person = {
   name: "Juliane Stoll",
-  note: "1 Tochter (Luise, 13 Jahre)",
+  note: "1 Tochter (Luise, 18 Jahre)",
   currentRole: {
     title: "Waldläuferin",
     org: "Naturpark Barnim",
@@ -94,6 +95,27 @@ const skills = [
   { name: "AutoCAD", level: 4 },
   { name: "Lexware", level: 4 },
 ];
+
+const sachkompetenzen = [
+  "Pädagogische Begleitung im Alltag",
+  "Naturpädagogische Aktivitäten",
+  "Kreativer Ausdruck mit Farbe, Pflanzen und Holz",
+  "Strukturgebende Alltagsgestaltung",
+];
+
+const methodischeKompetenzen = [
+  "Ressourcenorientiertes Arbeiten",
+  "Strukturierte Planung und Dokumentation",
+  "Lösungsorientierte Gesprächsführung",
+  "Sicherer Umgang mit Aufgaben und Prioritäten",
+];
+
+const taetigkeitsprofil = [
+  "Betreuung und Förderung von Kindern",
+  "Gestaltung von Lern- und Erfahrungsräumen",
+  "Begleitung von Entwicklungsprozessen",
+  "Zusammenarbeit mit Bezugspersonen und Jugendamt",
+];
 </script>
 
 <template>
@@ -115,6 +137,7 @@ const skills = [
     <div :class="s.grid">
       <!-- LEFT: Kontakt / Überblick -->
       <aside :class="s.side">
+        <img :class="s.sidebarAvatar" :src="portrait" alt="Porträt von Juliane Stoll" />
         <h2 :class="s.sidebarTitle">{{ person.name }}</h2>
         <p :class="s.muted">{{ person.note }}</p>
 
@@ -148,6 +171,27 @@ const skills = [
                 <span v-for="n in 5" :key="n" :class="[s.dot, { [s.on]: n <= skill.level }]"></span>
               </span>
             </li>
+          </ul>
+        </div>
+
+        <div :class="s.block">
+          <h3 :class="s.blockTitle">Sachkompetenzen</h3>
+          <ul :class="s.list">
+            <li v-for="item in sachkompetenzen" :key="item">{{ item }}</li>
+          </ul>
+        </div>
+
+        <div :class="s.block">
+          <h3 :class="s.blockTitle">Methodische Kompetenzen</h3>
+          <ul :class="s.list">
+            <li v-for="item in methodischeKompetenzen" :key="item">{{ item }}</li>
+          </ul>
+        </div>
+
+        <div :class="s.block">
+          <h3 :class="s.blockTitle">Tätigkeitsprofil</h3>
+          <ul :class="s.list">
+            <li v-for="item in taetigkeitsprofil" :key="item">{{ item }}</li>
           </ul>
         </div>
       </aside>
