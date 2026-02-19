@@ -1,6 +1,6 @@
 <script setup>
 import s from "../styles/pages/resume.module.css";
-import portrait from "../assets/images/julia-profile.jpg";
+import portrait from "../assets/images/profile/julia-profile.jpg";
 
 const person = {
   name: "Juliane Stoll",

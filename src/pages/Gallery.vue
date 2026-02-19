@@ -3,41 +3,58 @@ import { computed, onMounted, onUnmounted, ref } from "vue";
 import s from "../styles/pages/gallery.module.css";
 import ImageSlider from "../components/ImageSlider.vue";
 
-const modules = import.meta.glob("../assets/images/*.{jpg,jpeg,png,webp,avif}", {
+const modules = import.meta.glob("../assets/images/**/*.{jpg,jpeg,png,webp,avif}", {
   eager: true,
   import: "default",
 });
 
+const categoryMap = {
+  naturpaedagogik: "Naturpädagogik",
+  garden: "Garden",
+  abenteuer: "Abenteuer",
+  wandern: "Wandern",
+  kochen: "Kochen",
+  projekte: "Projekte",
+  vibes: "Vibes",
+};
+
+const categoryLabels = {
+  naturpaedagogik: "Naturpädagogik",
+  garden: "Gartenimpression",
+  abenteuer: "Abenteuerblick",
+  wandern: "Wanderblick",
+  kochen: "Kochmoment",
+  projekte: "Projektmoment",
+  vibes: "Vibes",
+};
+
 const images = Object.entries(modules)
   .map(([path, src]) => {
-    const file = path.split("/").pop() || "";
+    const parts = path.split("/");
+    const imagesIndex = parts.lastIndexOf("images");
+    const categoryKey = imagesIndex >= 0 ? parts[imagesIndex + 1] : "abenteuer";
+
+    if (!categoryKey || categoryKey === "profile") return null;
+
+    const file = parts[parts.length - 1] || "";
     const name = file.replace(/\.[^.]+$/, "");
     const label = name.replace(/[-_]+/g, " ").trim();
-    const lower = name.toLowerCase();
-
-    let category = "Adventure";
-    if (lower.includes("garden")) category = "Garden";
-    else if (lower.includes("natur")) category = "Natur";
 
     return {
       src,
       baseName: label || "Moment",
-      category,
+      categoryKey,
+      category: categoryMap[categoryKey] || "Abenteuer",
     };
   })
+  .filter(Boolean)
   .sort((a, b) => a.baseName.localeCompare(b.baseName));
 
 const sliderImages = images.slice(0, 8);
 
-const categoryLabels = {
-  Natur: "Naturmoment",
-  Garden: "Gartenimpression",
-  Adventure: "Abenteuerblick",
-};
-
 const labeledImages = images.map((image) => ({
   ...image,
-  name: `${categoryLabels[image.category] || "Moment"}`,
+  name: `${categoryLabels[image.categoryKey] || "Moment"}`,
 }));
 
 const sizeCycle = ["wide", "tall", "square", "wide", "square", "tall"];
@@ -45,21 +62,30 @@ const sizeCycle = ["wide", "tall", "square", "wide", "square", "tall"];
 const placeholders = Array.from({ length: 8 }, (_, index) => ({
   src: "",
   name: `Platzhalter ${index + 1}`,
-  category: "Adventure",
+  categoryKey: "abenteuer",
+  category: "Abenteuer",
   placeholder: true,
 }));
 
-const categories = computed(() => {
-  const set = new Set(labeledImages.map((image) => image.category));
-  return ["Alle", ...Array.from(set).sort()];
-});
+const categoryOrder = [
+  "alle",
+  "naturpaedagogik",
+  "garden",
+  "abenteuer",
+  "wandern",
+  "kochen",
+  "projekte",
+  "vibes",
+];
 
-const activeCategory = ref("Alle");
+const categories = computed(() => categoryOrder);
+
+const activeCategory = ref("alle");
 const lightboxImage = ref(null);
 
 const filteredImages = computed(() => {
-  if (activeCategory.value === "Alle") return labeledImages;
-  return labeledImages.filter((image) => image.category === activeCategory.value);
+  if (activeCategory.value === "alle") return labeledImages;
+  return labeledImages.filter((image) => image.categoryKey === activeCategory.value);
 });
 
 const displayImages = computed(() =>
@@ -123,14 +149,14 @@ onUnmounted(() => {
         <span :class="s.filterLabel">Kategorien</span>
         <div :class="s.filterChips" role="tablist" aria-label="Kategorien">
           <button
-            v-for="category in categories"
-            :key="category"
+            v-for="categoryKey in categories"
+            :key="categoryKey"
             type="button"
-            :class="[s.chip, { [s.chipActive]: category === activeCategory }]"
-            :aria-pressed="category === activeCategory"
-            @click="activeCategory = category"
+            :class="[s.chip, { [s.chipActive]: categoryKey === activeCategory }]"
+            :aria-pressed="categoryKey === activeCategory"
+            @click="activeCategory = categoryKey"
           >
-            {{ category }}
+            {{ categoryKey === "alle" ? "Alle" : categoryMap[categoryKey] }}
           </button>
         </div>
       </div>

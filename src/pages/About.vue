@@ -1,14 +1,15 @@
 <script setup>
 import s from "../styles/pages/about.module.css";
-import portrait from "../assets/images/julia-profile.jpg";
+import portrait from "../assets/images/profile/julia-profile.jpg";
 import ImageSlider from "../components/ImageSlider.vue";
 
-const modules = import.meta.glob("../assets/images/*.{jpg,jpeg,png,webp,avif}", {
+const modules = import.meta.glob("../assets/images/**/*.{jpg,jpeg,png,webp,avif}", {
   eager: true,
   import: "default",
 });
 
 const images = Object.entries(modules)
+  .filter(([path]) => !path.includes("/profile/"))
   .map(([path, src]) => {
     const file = path.split("/").pop() || "";
     const name = file.replace(/\.[^.]+$/, "");

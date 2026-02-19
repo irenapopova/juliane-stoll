@@ -78,6 +78,40 @@
       #b197fc,
       #ff7a4a
     ) border-box;
+  animation: avatarPulse 6s ease-in-out infinite;
+  transition: transform 0.2s ease;
+}
+
+.sidebarAvatar:hover {
+  animation: avatarShake 0.5s ease-in-out;
+}
+
+@keyframes avatarPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 20px 36px rgba(0, 0, 0, 0.22);
+  }
+}
+
+@keyframes avatarShake {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(1deg);
+  }
+  50% {
+    transform: rotate(-1deg);
+  }
+  75% {
+    transform: rotate(0.6deg);
+  }
 }
 
 .content {

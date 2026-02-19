@@ -2,7 +2,7 @@
 import { RouterLink } from "vue-router";
 import s from "../styles/pages/contact.module.css";
 import ImageSlider from "../components/ImageSlider.vue";
-import portrait from "../assets/images/julia-profile.jpg";
+import portrait from "../assets/images/profile/julia-profile.jpg";
 
 const contact = {
   name: "Juliane Stoll",
@@ -11,12 +11,13 @@ const contact = {
   phone: "",
 };
 
-const modules = import.meta.glob("../assets/images/*.{jpg,jpeg,png,webp,avif}", {
+const modules = import.meta.glob("../assets/images/**/*.{jpg,jpeg,png,webp,avif}", {
   eager: true,
   import: "default",
 });
 
 const images = Object.entries(modules)
+  .filter(([path]) => !path.includes("/profile/"))
   .map(([path, src]) => {
     const file = path.split("/").pop() || "";
     const name = file.replace(/\.[^.]+$/, "");
