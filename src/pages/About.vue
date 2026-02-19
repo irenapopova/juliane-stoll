@@ -2,6 +2,13 @@
 import s from "../styles/pages/about.module.css";
 import portrait from "../assets/images/profile/julia-profile.jpg";
 import ImageSlider from "../components/ImageSlider.vue";
+import BoxSlicer from "../components/BoxSlicer.vue";
+import garden1 from "../assets/images/garden/julia-garden.jpg";
+import garden2 from "../assets/images/garden/julia-garden2.jpg";
+import garden3 from "../assets/images/garden/julia-garden3.jpg";
+import garden4 from "../assets/images/garden/julia-garden4.jpg";
+import garden5 from "../assets/images/garden/julia-garden5.jpg";
+import garden6 from "../assets/images/garden/julia-garden7.jpg";
 
 const modules = import.meta.glob("../assets/images/**/*.{jpg,jpeg,png,webp,avif}", {
   eager: true,
@@ -22,6 +29,15 @@ const images = Object.entries(modules)
   .sort((a, b) => a.name.localeCompare(b.name));
 
 const sliderImages = images.slice(0, 8);
+
+const boxSlicerImages = [
+  { src: garden1, title: "Gartenimpression" },
+  { src: garden2, title: "Natürlicher Raum" },
+  { src: garden3, title: "Ruhige Momente" },
+  { src: garden4, title: "Grüne Wege" },
+  { src: garden5, title: "Licht & Blätter" },
+  { src: garden6, title: "In der Natur" },
+];
 </script>
 
 <template>
@@ -198,6 +214,10 @@ const sliderImages = images.slice(0, 8);
           alt="Juliane Stoll"
         />
       </div>
+    </div>
+
+    <div :class="s.boxSlicerWrap">
+      <BoxSlicer :images="boxSlicerImages" :slices="7" :autoPlay="true" />
     </div>
   </section>
 </template>

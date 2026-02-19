@@ -1,0 +1,87 @@
+.wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.05);
+}
+
+.slice {
+  position: absolute;
+  top: 0;
+  left: calc(var(--slice-index) * var(--slice-width));
+  width: var(--slice-width);
+  height: 100%;
+  background-image: var(--bg-current);
+  background-size: calc(100% * var(--slice-count)) 100%;
+  background-position: calc(-1 * var(--slice-index) * 100%) 0;
+  transition: transform var(--duration) ease, opacity var(--duration) ease;
+  transition-delay: var(--delay);
+}
+
+.slice.isAnimating {
+  transform: translate(var(--tx), var(--ty)) rotate(var(--rot));
+  opacity: 0;
+}
+
+.description {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(10, 14, 24, 0.6);
+  color: #ffffff;
+  backdrop-filter: blur(6px);
+}
+
+.description h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.shadow {
+  height: 18px;
+  margin: 0 auto;
+  width: 80%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.35), transparent 70%);
+  filter: blur(8px);
+}
+
+.navArrows {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.navArrows button {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-radius: 999px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.navArrows button:hover {
+  background: var(--color-surface);
+}
