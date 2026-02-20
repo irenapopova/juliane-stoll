@@ -16,6 +16,7 @@ import s from "../styles/components/header.module.css";
         <RouterLink to="/resume" :class="s.link" active-class="active">Resume</RouterLink>
         <RouterLink to="/methodik" :class="s.link" active-class="active">Methodik</RouterLink>
         <RouterLink to="/gallery" :class="s.link" active-class="active">Galerie</RouterLink>
+        <RouterLink to="/videos" :class="s.link" active-class="active">Videos</RouterLink>
         <RouterLink to="/contact" :class="s.link" active-class="active">Kontakt</RouterLink>
       </nav>
 

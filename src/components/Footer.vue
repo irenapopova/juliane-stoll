@@ -12,6 +12,7 @@ import s from "../styles/components/footer.module.css";
         <RouterLink to="/resume" :class="s.link" active-class="footerActive">Lebenslauf</RouterLink>
         <RouterLink to="/methodik" :class="s.link" active-class="footerActive">Methodik</RouterLink>
         <RouterLink to="/gallery" :class="s.link" active-class="footerActive">Galerie</RouterLink>
+        <RouterLink to="/videos" :class="s.link" active-class="footerActive">Videos</RouterLink>
         <RouterLink to="/contact" :class="s.link" active-class="footerActive">Kontakt</RouterLink>
       </nav>
     </div>
