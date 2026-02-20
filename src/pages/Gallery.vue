@@ -50,7 +50,9 @@ const images = Object.entries(modules)
   .filter(Boolean)
   .sort((a, b) => a.baseName.localeCompare(b.baseName));
 
-const sliderImages = images.slice(0, 8);
+const sliderImages = images
+  .filter((image) => image.categoryKey !== "naturpaedagogik")
+  .slice(0, 8);
 
 const labeledImages = images.map((image) => ({
   ...image,
