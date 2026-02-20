@@ -22,6 +22,42 @@ const localVideos = Object.entries(modules)
   })
   .sort((a, b) => a.name.localeCompare(b.name));
 
+const isYouTubeUrl = (url) =>
+  typeof url === "string" &&
+  (url.includes("youtube.com") || url.includes("youtu.be"));
+
+const getYouTubeId = (url) => {
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname.includes("youtu.be")) {
+      return parsed.pathname.replace("/", "");
+    }
+    if (parsed.searchParams.has("v")) {
+      return parsed.searchParams.get("v");
+    }
+    const parts = parsed.pathname.split("/");
+    const embedIndex = parts.findIndex((part) => part === "embed");
+    if (embedIndex !== -1 && parts[embedIndex + 1]) {
+      return parts[embedIndex + 1];
+    }
+    const shortsIndex = parts.findIndex((part) => part === "shorts");
+    if (shortsIndex !== -1 && parts[shortsIndex + 1]) {
+      return parts[shortsIndex + 1];
+    }
+  } catch (error) {
+    return "";
+  }
+  return "";
+};
+
+const toYouTubeEmbed = (url) => {
+  const id = getYouTubeId(url);
+  if (!id) {
+    return url;
+  }
+  return `https://www.youtube.com/embed/${id}`;
+};
+
 const sampleVideos = [
   {
     src: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
@@ -29,18 +65,32 @@ const sampleVideos = [
     topic: "Naturpädagogik",
   },
   {
-    src: "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-    name: "Kreativer Ausdruck",
+    src: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+    name: "Kreativer Alltag",
     topic: "Kreativität",
   },
   {
-    src: "https://storage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-    name: "Gemeinsames Lernen",
+    src: "https://www.youtube.com/watch?v=GMniyQIc1eU",
+    name: "Gemeinsame Wege",
     topic: "Beziehung",
+    kind: "youtube",
   },
 ];
 
-const videos = localVideos.length ? localVideos : sampleVideos;
+const videos = (localVideos.length ? localVideos : sampleVideos).map((video) => {
+  const isYouTube = video.kind === "youtube" || isYouTubeUrl(video.src);
+  if (isYouTube) {
+    return {
+      ...video,
+      kind: "youtube",
+      embedSrc: toYouTubeEmbed(video.src),
+    };
+  }
+  return {
+    ...video,
+    kind: "file",
+  };
+});
 </script>
 
 <template>
@@ -70,7 +120,16 @@ const videos = localVideos.length ? localVideos : sampleVideos;
     <div v-if="videos.length" :class="s.grid">
       <article v-for="video in videos" :key="video.src" :class="s.card">
         <div :class="s.tv">
-          <video :class="s.video" controls preload="metadata">
+          <iframe
+            v-if="video.kind === 'youtube'"
+            :class="s.video"
+            :src="video.embedSrc"
+            :title="video.name"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            loading="lazy"
+            allowfullscreen
+          ></iframe>
+          <video v-else :class="s.video" controls preload="metadata">
             <source :src="video.src" />
             Dein Browser unterstützt dieses Video nicht.
           </video>
