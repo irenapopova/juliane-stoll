@@ -1,7 +1,23 @@
 <script setup>
-import { RouterLink } from "vue-router";
+import { ref, watch } from "vue";
+import { RouterLink, useRoute } from "vue-router";
 import ThemeSwitch from "./ThemeSwitch.vue";
+import Burger from "./Burger.vue";
 import s from "../styles/components/header.module.css";
+
+const isOpen = ref(false);
+const route = useRoute();
+
+const toggleMenu = () => {
+  isOpen.value = !isOpen.value;
+};
+
+watch(
+  () => route.path,
+  () => {
+    isOpen.value = false;
+  },
+);
 </script>
 
 <template>
@@ -11,7 +27,12 @@ import s from "../styles/components/header.module.css";
         <RouterLink to="/about" :class="s.brandLink">Juliane Stoll</RouterLink>
       </div>
 
-      <nav :class="s.nav" aria-label="Primary">
+      <nav
+        id="primary-navigation"
+        :class="[s.nav, isOpen && s.navOpen]"
+        aria-label="Primary"
+        @click="isOpen = false"
+      >
         <RouterLink to="/about" :class="s.link" active-class="active">About</RouterLink>
         <RouterLink to="/resume" :class="s.link" active-class="active">Resume</RouterLink>
         <RouterLink to="/methodik" :class="s.link" active-class="active">Methodik</RouterLink>
@@ -21,6 +42,9 @@ import s from "../styles/components/header.module.css";
       </nav>
 
       <div :class="s.right">
+        <div :class="s.burgerWrap">
+          <Burger :open="isOpen" controls="primary-navigation" @toggle="toggleMenu" />
+        </div>
         <ThemeSwitch />
       </div>
     </div>

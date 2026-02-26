@@ -1,25 +1,25 @@
 <script setup>
-import s from "../styles/pages/motivation.module.css";
+import styles from "../styles/pages/motivation.module.css";
 </script>
 
 <template>
-  <section :class="s.page">
-    <header :class="s.hero">
-      <div :class="s.heroText">
-        <p :class="s.kicker">Motivation</p>
-        <h1 :class="s.title">Meine Motivation</h1>
-        <p :class="s.lede">
+  <section :class="styles.page">
+    <header :class="styles.hero">
+      <div :class="styles.heroText">
+        <p :class="styles.kicker">Motivation</p>
+        <h1 :class="styles.title">Meine Motivation</h1>
+        <p :class="styles.lede">
           Präzision, Verantwortung und Menschlichkeit stehen für mich im
           Mittelpunkt – besonders dort, wo es um Gesundheit und Vertrauen geht.
         </p>
       </div>
-      <div :class="s.heroCard">
-        <p :class="s.heroQuote">
+      <div :class="styles.heroCard">
+        <p :class="styles.heroQuote">
           Ich bringe technisches Verständnis, manuelles Geschick und eine starke
           Teamorientierung zusammen – mit dem klaren Ziel, Menschen im
           medizinischen Umfeld zuverlässig zu unterstützen.
         </p>
-        <div :class="s.heroMeta">
+        <div :class="styles.heroMeta">
           <span>Präzise</span>
           <span>Verlässlich</span>
           <span>Empathisch</span>
@@ -27,7 +27,7 @@ import s from "../styles/pages/motivation.module.css";
       </div>
     </header>
 
-    <article :class="s.contentCard">
+    <article :class="styles.contentCard">
       <p>
         Der Wunsch, im medizinischen Umfeld zu arbeiten und Menschen in
         verantwortungsvollen Situationen zu unterstützen, begleitet mich schon
