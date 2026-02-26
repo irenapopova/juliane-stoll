@@ -1,0 +1,140 @@
+.page {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.hero {
+  display: grid;
+  gap: var(--space-lg);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  align-items: stretch;
+}
+
+.heroText {
+  background: linear-gradient(135deg, rgba(255, 122, 74, 0.18), transparent);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 3vw, 32px);
+  position: relative;
+  overflow: hidden;
+}
+
+.heroText::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.15), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(255, 122, 74, 0.2), transparent 50%);
+  pointer-events: none;
+}
+
+.kicker {
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  color: var(--color-muted);
+}
+
+.title {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  font-family: var(--font-signature);
+}
+
+.lede {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+}
+
+.heroCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: clamp(18px, 3vw, 28px);
+  display: grid;
+  gap: var(--space-md);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+.heroQuote {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.heroMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.heroMeta span {
+  padding: 2px 16px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--color-bg), var(--color-bg)) padding-box,
+    conic-gradient(
+      from 180deg,
+      #ff7a4a,
+      #ffd166,
+      #06d6a0,
+      #4dabf7,
+      #b197fc,
+      #ff7a4a
+    )
+    border-box;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12);
+  animation:
+    badgePulse 3.8s ease-in-out infinite,
+    badgeGlow 4.5s ease-in-out infinite;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes badgePulse {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes badgeGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 10px 18px rgba(0, 0, 0, 0.12),
+      0 0 0 rgba(255, 122, 74, 0);
+  }
+  50% {
+    box-shadow:
+      0 16px 26px rgba(0, 0, 0, 0.16),
+      0 0 12px rgba(255, 122, 74, 0.35);
+  }
+}
+
+.contentCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 3vw, 32px);
+  display: grid;
+  gap: 14px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+  line-height: 1.7;
+}
+
+.contentCard p {
+  margin: 0;
+}

@@ -38,6 +38,85 @@
   filter: brightness(1.05);
 }
 
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 10px 14px;
+  border-radius: 999px;
+  background:
+    linear-gradient(var(--color-bg), var(--color-bg)) padding-box,
+    conic-gradient(
+      from 180deg,
+      #ff7a4a,
+      #ffd166,
+      #06d6a0,
+      #4dabf7,
+      #b197fc,
+      #ff7a4a
+    )
+    border-box;
+  color: var(--color-text);
+  font-weight: 600;
+  border: 2px solid transparent;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  animation:
+    motivationPulse 4.2s ease-in-out infinite,
+    motivationGlow 5.2s ease-in-out infinite;
+}
+
+.btnGhost:hover {
+  background:
+    linear-gradient(var(--color-bg), var(--color-bg)) padding-box,
+    linear-gradient(var(--color-accent), var(--color-accent)) border-box;
+  border-color: transparent;
+  animation: motivationSpin 0.7s linear;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.14);
+}
+
+@keyframes motivationPulse {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes motivationGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 10px 20px rgba(0, 0, 0, 0.08),
+      0 0 0 rgba(255, 122, 74, 0);
+  }
+  50% {
+    box-shadow:
+      0 16px 28px rgba(0, 0, 0, 0.14),
+      0 0 16px rgba(255, 122, 74, 0.35);
+  }
+}
+
+@keyframes motivationSpin {
+  from {
+    transform: translateY(-2px) rotate(0deg);
+  }
+  to {
+    transform: translateY(-2px) rotate(360deg);
+  }
+}
+
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -126,7 +205,9 @@
 
 .sectionTitle {
   margin: 0 0 10px;
-  font-size: 1.2rem;
+  font-size: 1.75rem;
+  color: #2f6fb2;
+  font-weight: 700;
 }
 
 .blockTitle {
@@ -241,4 +322,21 @@
   padding: 8px 10px;
   border-radius: 999px;
   font-size: 0.95rem;
+}
+
+.pillListSidebar {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pillSidebar {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  padding: 6px 8px;
+  border-radius: 999px;
+  font-size: 0.85rem;
 }

@@ -5,6 +5,7 @@ import Methodik from "../pages/Methodik.vue";
 import Gallery from "../pages/Gallery.vue";
 import Contact from "../pages/Contact.vue";
 import VideoGallery from "../pages/VideoGallery.vue";
+import Motivation from "../pages/Motivation.vue";
 
 export default createRouter({
   history: createWebHistory(),
@@ -16,5 +17,6 @@ export default createRouter({
     { path: "/gallery", component: Gallery },
     { path: "/contact", component: Contact },
     { path: "/videos", component: VideoGallery },
+    { path: "/motivation", component: Motivation },
   ],
 });
