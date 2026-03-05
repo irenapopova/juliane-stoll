@@ -215,11 +215,14 @@ const boxSlicerImages = [
         </div>
         <img
           :class="s.avatar"
-          :src="portrait"
+          :src="portrait640"
+          :srcset="`${portrait320} 320w, ${portrait640} 640w, ${portrait960} 960w`"
+          sizes="(max-width: 600px) 120px, (max-width: 900px) 160px, 170px"
           alt="Juliane Stoll"
-          width="1080"
-          height="1080"
+          width="960"
+          height="960"
           decoding="async"
+          loading="lazy"
         />
       </div>
     </div>

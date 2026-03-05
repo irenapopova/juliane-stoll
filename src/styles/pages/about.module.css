@@ -213,12 +213,61 @@
 }
 
 .splitImage {
-  width: 100%;
-  border-radius: var(--radius-md);
+  --size: clamp(130px, 26vw, 210px);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
   border: 1px solid var(--color-border);
   object-fit: cover;
-  min-height: 220px;
+  min-height: 0;
   order: 0;
+  justify-self: center;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.12);
+  animation: splitPulse 6s ease-in-out infinite;
+  transition: transform 0.2s ease;
+}
+
+.splitImage:hover {
+  animation: splitShake 0.5s ease-in-out;
+}
+
+@keyframes splitPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.12);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 22px 40px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@keyframes splitShake {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(1deg);
+  }
+  50% {
+    transform: rotate(-1deg);
+  }
+  75% {
+    transform: rotate(0.6deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splitImage {
+    animation: none;
+    transition: none;
+  }
+
+  .splitImage:hover {
+    animation: none;
+  }
 }
 
 .splitText {
