@@ -179,21 +179,20 @@ const softSkills = [
 <template>
   <section :class="s.card">
     <header :class="s.top">
-      <div>
+      <div :class="s.intro">
         <h1 :class="s.title">Lebenslauf</h1>
         <p :class="s.muted">
           Kurzprofil, Berufserfahrung, Ausbildung & Kompetenzen
         </p>
-      </div>
-
-      <div :class="s.actions">
-        <RouterLink :class="s.btnGhost" to="/motivation">
-          Meine Motivation
-        </RouterLink>
-        <!-- Lege deine PDF in /public/resume.pdf ab -->
-        <a :class="s.btn" href="/resume.pdf" target="_blank" rel="noreferrer">
-          PDF herunterladen
-        </a>
+        <div :class="s.actions">
+          <RouterLink :class="s.btnGhost" to="/motivation">
+            Meine Motivation
+          </RouterLink>
+          <!-- Lege deine PDF in /public/resume.pdf ab -->
+          <a :class="s.btn" href="/resume.pdf" target="_blank" rel="noreferrer">
+            PDF herunterladen
+          </a>
+        </div>
       </div>
     </header>
 

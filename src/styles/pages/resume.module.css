@@ -7,11 +7,9 @@
 }
 
 .top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--space-md);
-  flex-wrap: wrap;
+  display: grid;
+  gap: 10px;
+  align-items: start;
 }
 
 .title {
@@ -19,6 +17,8 @@
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   letter-spacing: 0.2px;
   font-family: var(--font-signature);
+  background: transparent;
+  text-shadow: none;
 }
 
 .btn {
@@ -43,6 +43,12 @@
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
+  margin-top: 6px;
+}
+
+.intro {
+  display: grid;
+  gap: 6px;
 }
 
 .btnGhost {
