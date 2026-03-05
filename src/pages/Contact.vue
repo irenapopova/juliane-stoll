@@ -28,12 +28,14 @@ const images = Object.entries(modules)
     };
   })
   .sort((a, b) => a.name.localeCompare(b.name));
+
+const sliderImages = images.filter((item) => item.src.includes("/slider/"));
 </script>
 
 <template>
   <section :class="s.page">
-    <div v-if="images.length" :class="s.sliderWrap">
-      <ImageSlider :images="images" compact />
+    <div v-if="sliderImages.length" :class="s.sliderWrap">
+      <ImageSlider :images="sliderImages" compact />
     </div>
 
     <div :class="s.hero">

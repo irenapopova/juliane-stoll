@@ -28,9 +28,7 @@ const images = Object.entries(modules)
   })
   .sort((a, b) => a.name.localeCompare(b.name));
 
-const sliderImages = images
-  .filter(({ src }) => !src.includes("/naturpaedagogik/"))
-  .slice(0, 8);
+const sliderImages = images.filter((item) => item.src.includes("/slider/"));
 
 const boxSlicerImages = [
   { src: garden1, title: "Gartenimpression" },

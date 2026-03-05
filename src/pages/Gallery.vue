@@ -28,7 +28,7 @@ const categoryLabels = {
   vibes: "Vibes",
 };
 
-const images = Object.entries(modules)
+const rawImages = Object.entries(modules)
   .map(([path, src]) => {
     const parts = path.split("/");
     const imagesIndex = parts.lastIndexOf("images");
@@ -50,9 +50,9 @@ const images = Object.entries(modules)
   .filter(Boolean)
   .sort((a, b) => a.baseName.localeCompare(b.baseName));
 
-const sliderImages = images
-  .filter((image) => image.categoryKey !== "naturpaedagogik")
-  .slice(0, 8);
+const images = rawImages.filter((image) => image.categoryKey !== "slider");
+
+const sliderImages = rawImages.filter((image) => image.src.includes("/slider/"));
 
 const labeledImages = images.map((image) => ({
   ...image,
