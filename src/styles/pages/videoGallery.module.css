@@ -69,14 +69,75 @@
   flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
 }
 
 .heroMeta span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 6px 12px;
   border-radius: 999px;
-  border: 1px solid var(--color-border);
-  background: var(--color-bg);
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--color-bg), var(--color-bg)) padding-box,
+    conic-gradient(
+      from 180deg,
+      #ff7a4a,
+      #ffd166,
+      #06d6a0,
+      #4dabf7,
+      #b197fc,
+      #ff7a4a
+    ) border-box;
   font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+  animation: heroChipPulse 5s ease-in-out infinite;
+  transition: transform 0.2s ease;
+}
+
+.heroMeta span:hover {
+  animation: heroChipRotate 0.6s ease-in-out;
+  transform: rotate(2deg);
+}
+
+@keyframes heroChipPulse {
+  0%,
+  100% {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(0);
+  }
+  50% {
+    box-shadow: 0 16px 28px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes heroChipRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroMeta span {
+    animation: none;
+    transition: none;
+  }
+
+  .heroMeta span:hover {
+    animation: none;
+    transform: none;
+  }
 }
 
 .grid {
