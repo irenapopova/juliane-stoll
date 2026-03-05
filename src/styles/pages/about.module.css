@@ -16,6 +16,15 @@
   margin: 0 auto;
 }
 
+.boxSlicerPlaceholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.14);
+}
+
 .card {
   --rainbow-bg: var(--color-surface);
   background: var(--color-surface);

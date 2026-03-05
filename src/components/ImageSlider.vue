@@ -11,6 +11,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  showCaptions: {
+    type: Boolean,
+    default: true,
+  },
   autoPlay: {
     type: Boolean,
     default: true,
@@ -27,6 +31,15 @@ const hasImages = computed(() => total.value > 0);
 const dimensions = computed(() =>
   props.compact ? { width: 1600, height: 500 } : { width: 1600, height: 900 },
 );
+
+function shouldLoad(index) {
+  if (!hasImages.value) return false;
+  if (index === active.value) return true;
+  if (total.value < 3) return true;
+  const nextIndex = (active.value + 1) % total.value;
+  const prevIndex = (active.value - 1 + total.value) % total.value;
+  return index === nextIndex || index === prevIndex;
+}
 let timer = null;
 
 function goTo(index) {
@@ -84,6 +97,7 @@ watch(
           :aria-hidden="index !== active"
         >
           <img
+            v-if="shouldLoad(index)"
             :class="[s.image, 'lazy']"
             :src="image.src"
             :alt="image.name"
@@ -94,7 +108,8 @@ watch(
             decoding="async"
             @load="(event) => event.target.classList.add('is-loaded')"
           />
-          <figcaption :class="s.caption">{{ image.name }}</figcaption>
+          <div v-else :class="s.imagePlaceholder" aria-hidden="true"></div>
+          <figcaption v-if="props.showCaptions" :class="s.caption">{{ image.name }}</figcaption>
         </figure>
       </div>
     </div>

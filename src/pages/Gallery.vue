@@ -126,7 +126,7 @@ onUnmounted(() => {
 <template>
   <section :class="s.page">
     <div v-if="sliderImages.length" :class="s.sliderWrap">
-      <ImageSlider :images="sliderImages" compact class="noRadius" />
+      <ImageSlider :images="sliderImages" compact class="noRadius" :showCaptions="false" />
     </div>
 
     <div :class="s.hero">

@@ -28,7 +28,7 @@ const sliderImages = images.filter((item) => item.src.includes("/slider/"));
 <template>
   <section :class="s.page">
     <div v-if="sliderImages.length" :class="s.sliderWrap">
-      <ImageSlider :images="sliderImages" compact />
+      <ImageSlider :images="sliderImages" compact :showCaptions="false" />
     </div>
 
     <div :class="s.hero">

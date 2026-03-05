@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted, onUnmounted, ref } from "vue";
 import s from "../styles/pages/about.module.css";
 import portrait320 from "../assets/images/profile/julia-profile-320.jpg";
 import portrait640 from "../assets/images/profile/julia-profile-640.jpg";
@@ -31,12 +32,46 @@ const boxSlicerImages = [
   { src: garden5, title: "Licht & Blätter" },
   { src: garden6, title: "In der Natur" },
 ];
+
+const boxSlicerVisible = ref(false);
+const boxSlicerRef = ref(null);
+let observer;
+
+onMounted(() => {
+  if (typeof window === "undefined") return;
+  if (!("IntersectionObserver" in window)) {
+    boxSlicerVisible.value = true;
+    return;
+  }
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        boxSlicerVisible.value = true;
+        observer.disconnect();
+        observer = null;
+      }
+    },
+    { rootMargin: "200px 0px" },
+  );
+
+  if (boxSlicerRef.value) {
+    observer.observe(boxSlicerRef.value);
+  }
+});
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+    observer = null;
+  }
+});
 </script>
 
 <template>
   <section :class="s.page">
     <div v-if="sliderImages.length" :class="s.sliderWrap">
-      <ImageSlider :images="sliderImages" compact class="noRadius" />
+      <ImageSlider :images="sliderImages" compact class="noRadius" :showCaptions="false" />
     </div>
 
     <div :class="[s.card, s.rainbowLine]">
@@ -227,8 +262,9 @@ const boxSlicerImages = [
       </div>
     </div>
 
-    <div :class="s.boxSlicerWrap">
-      <BoxSlicer :images="boxSlicerImages" :slices="7" :autoPlay="true" />
+    <div :class="s.boxSlicerWrap" ref="boxSlicerRef">
+      <BoxSlicer v-if="boxSlicerVisible" :images="boxSlicerImages" :slices="7" :autoPlay="true" />
+      <div v-else :class="s.boxSlicerPlaceholder" aria-hidden="true"></div>
     </div>
   </section>
 </template>
