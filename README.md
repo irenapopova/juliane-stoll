@@ -7,3 +7,31 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
 npm install -g netlify-cli
 netlify login
 netlify deploy --prod
+```bash
+git add -A
+git commit -m "Update site"
+git push origin main
+```
+
+npm run build
+
+npm run build
+npm run preview
+Deploy (if you use Netlify CLI)
+
+npx netlify deploy --prod --dir=dist
+
+Clear local DNS cache
+
+sudo dscacheutil -flushcache
+sudo killall -HUP mDNSResponder
+
+Speed / Performance (lab + waterfall)
+
+WebPageTest — deep waterfall + filmstrip/video and global test locations for detailed load diagnostics. (catchpoint.com)
+GTmetrix — runs Lighthouse metrics and Web Vitals, includes a waterfall and location/device options. (gtmetrix.com)
+SEO / Indexing
+
+Google Search Console – URL Inspection — checks index status for a specific URL in Google’s index. (developers.google.com)
+Bing Webmaster Tools – URL Inspection — shows index details plus SEO diagnostics and markup checks. (blogs.bing.com)
+Bing Webmaster Tools – Site Explorer — gives a broader view of indexed/known URLs and health signals. (blogs.bing.com)

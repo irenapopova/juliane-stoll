@@ -1,7 +1,10 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from "vue";
 import s from "../styles/pages/about.module.css";
+import portrait180 from "../assets/images/profile/julia-profile-180.jpg";
+import portrait240 from "../assets/images/profile/julia-profile-240.jpg";
 import portrait320 from "../assets/images/profile/julia-profile-320.jpg";
+import portrait420 from "../assets/images/profile/julia-profile-420.jpg";
 import portrait640 from "../assets/images/profile/julia-profile-640.jpg";
 import portrait960 from "../assets/images/profile/julia-profile-960.jpg";
 import ImageSlider from "../components/ImageSlider.vue";
@@ -79,7 +82,7 @@ onUnmounted(() => {
         <img
           :class="s.avatar"
           :src="portrait640"
-          :srcset="`${portrait320} 320w, ${portrait640} 640w, ${portrait960} 960w`"
+          :srcset="`${portrait180} 180w, ${portrait240} 240w, ${portrait320} 320w`"
           sizes="(max-width: 600px) 120px, (max-width: 900px) 160px, 170px"
           alt="Porträt von Juliane Stoll"
           width="960"
@@ -214,12 +217,12 @@ onUnmounted(() => {
     <div :class="s.splitSection">
       <img
         :class="s.splitImage"
-        :src="portrait640"
-        :srcset="`${portrait320} 320w, ${portrait640} 640w, ${portrait960} 960w`"
-        sizes="(max-width: 900px) 100vw, 420px"
+        :src="portrait420"
+        :srcset="`${portrait240} 240w, ${portrait420} 420w`"
+        sizes="(max-width: 600px) 150px, (max-width: 900px) 180px, 210px"
         alt="Natur und Begleitung"
-        width="960"
-        height="960"
+        width="420"
+        height="420"
         loading="lazy"
         decoding="async"
       />
