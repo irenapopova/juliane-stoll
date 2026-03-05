@@ -90,6 +90,7 @@ watch(
             :width="dimensions.width"
             :height="dimensions.height"
             :loading="index === 0 ? 'eager' : 'lazy'"
+            :fetchpriority="index === 0 ? 'high' : 'auto'"
             decoding="async"
             @load="(event) => event.target.classList.add('is-loaded')"
           />
@@ -105,7 +106,7 @@ watch(
       ›
     </button>
 
-    <div :class="s.dots" role="tablist" aria-label="Bildauswahl">
+    <div :class="s.dots" role="group" aria-label="Bildauswahl">
       <button
         v-for="(_, index) in images"
         :key="`dot-${index}`"

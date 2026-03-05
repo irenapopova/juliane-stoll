@@ -162,7 +162,7 @@ onUnmounted(() => {
     <section :class="s.gallerySection">
       <div :class="s.filterBar">
         <span :class="s.filterLabel">Kategorien</span>
-        <div :class="s.filterChips" role="tablist" aria-label="Kategorien">
+        <div :class="s.filterChips" role="group" aria-label="Kategorien">
           <button
             v-for="categoryKey in categories"
             :key="categoryKey"

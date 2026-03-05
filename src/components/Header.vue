@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, useId, watch } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 import ThemeSwitch from "./ThemeSwitch.vue";
 import Burger from "./Burger.vue";
@@ -7,6 +7,7 @@ import s from "../styles/components/header.module.css";
 
 const isOpen = ref(false);
 const route = useRoute();
+const navId = `primary-navigation-${useId()}`;
 
 const toggleMenu = () => {
   isOpen.value = !isOpen.value;
@@ -28,7 +29,7 @@ watch(
       </div>
 
       <nav
-        id="primary-navigation"
+        :id="navId"
         :class="[s.nav, isOpen && s.navOpen]"
         aria-label="Primary"
         @click="isOpen = false"
@@ -43,7 +44,7 @@ watch(
 
       <div :class="s.right">
         <div :class="s.burgerWrap">
-          <Burger :open="isOpen" controls="primary-navigation" @toggle="toggleMenu" />
+          <Burger :open="isOpen" :controls="navId" @toggle="toggleMenu" />
         </div>
         <ThemeSwitch />
       </div>
