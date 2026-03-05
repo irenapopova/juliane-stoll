@@ -17,15 +17,13 @@ import garden4 from "../assets/images/garden/julia-garden4.jpg";
 import garden5 from "../assets/images/garden/julia-garden5.jpg";
 import garden6 from "../assets/images/garden/julia-garden7.jpg";
 
-const images = imageEntries
-  .filter((image) => !image.path.includes("/profile/"))
+const sliderImages = imageEntries
+  .filter((image) => image.path.includes("/slider/"))
   .map((image) => ({
     src: image.src,
     name: image.label || "Moment",
   }))
   .sort((a, b) => a.name.localeCompare(b.name));
-
-const sliderImages = images.filter((item) => item.src.includes("/slider/"));
 
 const boxSlicerImages = [
   { src: garden1, title: "Gartenimpression" },

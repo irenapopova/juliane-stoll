@@ -14,15 +14,13 @@ const contact = {
   phone: "",
 };
 
-const images = imageEntries
-  .filter((image) => !image.path.includes("/profile/"))
+const sliderImages = imageEntries
+  .filter((image) => image.path.includes("/slider/"))
   .map((image) => ({
     src: image.src,
     name: image.label || "Moment",
   }))
   .sort((a, b) => a.name.localeCompare(b.name));
-
-const sliderImages = images.filter((item) => item.src.includes("/slider/"));
 </script>
 
 <template>

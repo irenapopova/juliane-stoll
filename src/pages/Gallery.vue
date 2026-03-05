@@ -44,7 +44,7 @@ const rawImages = imageEntries
 
 const images = rawImages.filter((image) => image.categoryKey !== "slider");
 
-const sliderImages = rawImages.filter((image) => image.src.includes("/slider/"));
+const sliderImages = rawImages.filter((image) => image.categoryKey === "slider");
 
 const labeledImages = images.map((image) => ({
   ...image,
