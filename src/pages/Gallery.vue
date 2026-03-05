@@ -2,11 +2,7 @@
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import s from "../styles/pages/gallery.module.css";
 import ImageSlider from "../components/ImageSlider.vue";
-
-const modules = import.meta.glob("../assets/images/**/*.{jpg,jpeg,png,webp,avif}", {
-  eager: true,
-  import: "default",
-});
+import { imageEntries } from "../data/images";
 
 const categoryMap = {
   naturpaedagogik: "Naturpädagogik",
@@ -28,21 +24,17 @@ const categoryLabels = {
   vibes: "Vibes",
 };
 
-const rawImages = Object.entries(modules)
-  .map(([path, src]) => {
-    const parts = path.split("/");
+const rawImages = imageEntries
+  .map((image) => {
+    const parts = image.path.split("/");
     const imagesIndex = parts.lastIndexOf("images");
     const categoryKey = imagesIndex >= 0 ? parts[imagesIndex + 1] : "abenteuer";
 
     if (!categoryKey || categoryKey === "profile") return null;
 
-    const file = parts[parts.length - 1] || "";
-    const name = file.replace(/\.[^.]+$/, "");
-    const label = name.replace(/[-_]+/g, " ").trim();
-
     return {
-      src,
-      baseName: label || "Moment",
+      src: image.src,
+      baseName: image.label || "Moment",
       categoryKey,
       category: categoryMap[categoryKey] || "Abenteuer",
     };

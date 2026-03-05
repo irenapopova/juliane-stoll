@@ -5,6 +5,7 @@ import portrait640 from "../assets/images/profile/julia-profile-640.jpg";
 import portrait960 from "../assets/images/profile/julia-profile-960.jpg";
 import ImageSlider from "../components/ImageSlider.vue";
 import BoxSlicer from "../components/BoxSlicer.vue";
+import { imageEntries } from "../data/images";
 import garden1 from "../assets/images/garden/julia-garden.jpg";
 import garden2 from "../assets/images/garden/julia-garden2.jpg";
 import garden3 from "../assets/images/garden/julia-garden3.jpg";
@@ -12,22 +13,12 @@ import garden4 from "../assets/images/garden/julia-garden4.jpg";
 import garden5 from "../assets/images/garden/julia-garden5.jpg";
 import garden6 from "../assets/images/garden/julia-garden7.jpg";
 
-const modules = import.meta.glob("../assets/images/**/*.{jpg,jpeg,png,webp,avif}", {
-  eager: true,
-  import: "default",
-});
-
-const images = Object.entries(modules)
-  .filter(([path]) => !path.includes("/profile/"))
-  .map(([path, src]) => {
-    const file = path.split("/").pop() || "";
-    const name = file.replace(/\.[^.]+$/, "");
-    const label = name.replace(/[-_]+/g, " ").trim();
-    return {
-      src,
-      name: label || "Moment",
-    };
-  })
+const images = imageEntries
+  .filter((image) => !image.path.includes("/profile/"))
+  .map((image) => ({
+    src: image.src,
+    name: image.label || "Moment",
+  }))
   .sort((a, b) => a.name.localeCompare(b.name));
 
 const sliderImages = images.filter((item) => item.src.includes("/slider/"));

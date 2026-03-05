@@ -5,6 +5,7 @@ import ImageSlider from "../components/ImageSlider.vue";
 import portrait320 from "../assets/images/profile/julia-profile-320.jpg";
 import portrait640 from "../assets/images/profile/julia-profile-640.jpg";
 import portrait960 from "../assets/images/profile/julia-profile-960.jpg";
+import { imageEntries } from "../data/images";
 
 const contact = {
   name: "Juliane Stoll",
@@ -13,22 +14,12 @@ const contact = {
   phone: "",
 };
 
-const modules = import.meta.glob("../assets/images/**/*.{jpg,jpeg,png,webp,avif}", {
-  eager: true,
-  import: "default",
-});
-
-const images = Object.entries(modules)
-  .filter(([path]) => !path.includes("/profile/"))
-  .map(([path, src]) => {
-    const file = path.split("/").pop() || "";
-    const name = file.replace(/\.[^.]+$/, "");
-    const label = name.replace(/[-_]+/g, " ").trim();
-    return {
-      src,
-      name: label || "Moment",
-    };
-  })
+const images = imageEntries
+  .filter((image) => !image.path.includes("/profile/"))
+  .map((image) => ({
+    src: image.src,
+    name: image.label || "Moment",
+  }))
   .sort((a, b) => a.name.localeCompare(b.name));
 
 const sliderImages = images.filter((item) => item.src.includes("/slider/"));
