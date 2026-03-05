@@ -24,6 +24,9 @@ const props = defineProps({
 const active = ref(0);
 const total = computed(() => props.images.length);
 const hasImages = computed(() => total.value > 0);
+const dimensions = computed(() =>
+  props.compact ? { width: 1600, height: 500 } : { width: 1600, height: 900 },
+);
 let timer = null;
 
 function goTo(index) {
@@ -80,7 +83,16 @@ watch(
           :class="s.slide"
           :aria-hidden="index !== active"
         >
-          <img :class="s.image" :src="image.src" :alt="image.name" />
+          <img
+            :class="[s.image, 'lazy']"
+            :src="image.src"
+            :alt="image.name"
+            :width="dimensions.width"
+            :height="dimensions.height"
+            :loading="index === 0 ? 'eager' : 'lazy'"
+            decoding="async"
+            @load="(event) => event.target.classList.add('is-loaded')"
+          />
           <figcaption :class="s.caption">{{ image.name }}</figcaption>
         </figure>
       </div>

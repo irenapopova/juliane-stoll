@@ -1,6 +1,8 @@
 <script setup>
 import s from "../styles/pages/resume.module.css";
-import portrait from "../assets/images/profile/julia-profile.jpg";
+import portrait320 from "../assets/images/profile/julia-profile-320.jpg";
+import portrait640 from "../assets/images/profile/julia-profile-640.jpg";
+import portrait960 from "../assets/images/profile/julia-profile-960.jpg";
 
 const person = {
   name: "Juliane Stoll",
@@ -200,8 +202,14 @@ const softSkills = [
       <aside :class="s.side">
         <img
           :class="s.sidebarAvatar"
-          :src="portrait"
+          :src="portrait640"
+          :srcset="`${portrait320} 320w, ${portrait640} 640w, ${portrait960} 960w`"
+          sizes="180px"
           alt="Porträt von Juliane Stoll"
+          width="960"
+          height="960"
+          decoding="async"
+          loading="lazy"
         />
         <h2 :class="s.sidebarTitle">{{ person.name }}</h2>
         <p :class="s.muted">{{ person.note }}</p>

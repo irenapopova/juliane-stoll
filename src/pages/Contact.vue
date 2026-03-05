@@ -2,7 +2,9 @@
 import { RouterLink } from "vue-router";
 import s from "../styles/pages/contact.module.css";
 import ImageSlider from "../components/ImageSlider.vue";
-import portrait from "../assets/images/profile/julia-profile.jpg";
+import portrait320 from "../assets/images/profile/julia-profile-320.jpg";
+import portrait640 from "../assets/images/profile/julia-profile-640.jpg";
+import portrait960 from "../assets/images/profile/julia-profile-960.jpg";
 
 const contact = {
   name: "Juliane Stoll",
@@ -74,7 +76,17 @@ const sliderImages = images.filter((item) => item.src.includes("/slider/"));
       </div>
 
       <div :class="s.heroMedia">
-        <img :class="s.portrait" :src="portrait" alt="Porträt von Juliane Stoll" />
+        <img
+          :class="s.portrait"
+          :src="portrait640"
+          :srcset="`${portrait320} 320w, ${portrait640} 640w, ${portrait960} 960w`"
+          sizes="(max-width: 900px) 70vw, 320px"
+          alt="Porträt von Juliane Stoll"
+          width="960"
+          height="960"
+          decoding="async"
+          fetchpriority="high"
+        />
         <div :class="[s.mediaNote, s.rainbowNote]">
           <h2 :class="s.mediaTitle">Zusammenarbeit</h2>
           <p :class="s.body">

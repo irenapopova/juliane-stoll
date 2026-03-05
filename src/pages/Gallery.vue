@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import s from "../styles/pages/gallery.module.css";
 import ImageSlider from "../components/ImageSlider.vue";
 
@@ -90,9 +90,18 @@ const filteredImages = computed(() => {
   return labeledImages.filter((image) => image.categoryKey === activeCategory.value);
 });
 
-const displayImages = computed(() =>
-  labeledImages.length ? filteredImages.value : placeholders,
+const pageSize = 18;
+const visibleCount = ref(pageSize);
+
+const displayImages = computed(() => (labeledImages.length ? filteredImages.value : placeholders));
+const visibleImages = computed(() => displayImages.value.slice(0, visibleCount.value));
+const showLoadMore = computed(
+  () => labeledImages.length > 0 && displayImages.value.length > visibleCount.value,
 );
+
+function loadMore() {
+  visibleCount.value = Math.min(visibleCount.value + pageSize, displayImages.value.length);
+}
 
 function openLightbox(image) {
   if (image.placeholder) return;
@@ -108,6 +117,10 @@ function handleKey(event) {
     closeLightbox();
   }
 }
+
+watch(activeCategory, () => {
+  visibleCount.value = pageSize;
+});
 
 onMounted(() => {
   window.addEventListener("keydown", handleKey);
@@ -165,7 +178,7 @@ onUnmounted(() => {
 
       <div :class="s.gallery">
         <button
-          v-for="(image, index) in displayImages"
+          v-for="(image, index) in visibleImages"
           :key="image.src || image.name"
           :class="[s.tile, s[sizeCycle[index % sizeCycle.length]], { [s.placeholder]: image.placeholder }]"
           type="button"
@@ -177,7 +190,12 @@ onUnmounted(() => {
             v-if="!image.placeholder"
             :src="image.src"
             :alt="image.name"
-            :class="s.image"
+            :class="[s.image, 'lazy']"
+            width="1200"
+            height="900"
+            loading="lazy"
+            decoding="async"
+            @load="(event) => event.target.classList.add('is-loaded')"
           />
           <div v-else :class="s.placeholderCard">
             <span :class="s.placeholderLabel">{{ image.name }}</span>
@@ -186,6 +204,15 @@ onUnmounted(() => {
           <figcaption v-if="!image.placeholder" :class="s.caption">{{ image.name }}</figcaption>
           <span v-if="!image.placeholder" :class="s.categoryTag">{{ image.category }}</span>
         </button>
+      </div>
+
+      <div v-if="showLoadMore" :class="s.loadMore">
+        <button type="button" :class="s.loadMoreButton" @click="loadMore">
+          Mehr laden
+        </button>
+        <p :class="s.loadMoreHint">
+          {{ visibleImages.length }} von {{ displayImages.length }} Fotos
+        </p>
       </div>
     </section>
 

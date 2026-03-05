@@ -1,6 +1,8 @@
 <script setup>
 import s from "../styles/pages/about.module.css";
-import portrait from "../assets/images/profile/julia-profile.jpg";
+import portrait320 from "../assets/images/profile/julia-profile-320.jpg";
+import portrait640 from "../assets/images/profile/julia-profile-640.jpg";
+import portrait960 from "../assets/images/profile/julia-profile-960.jpg";
 import ImageSlider from "../components/ImageSlider.vue";
 import BoxSlicer from "../components/BoxSlicer.vue";
 import garden1 from "../assets/images/garden/julia-garden.jpg";
@@ -50,8 +52,14 @@ const boxSlicerImages = [
       <div :class="s.hero">
         <img
           :class="s.avatar"
-          :src="portrait"
+          :src="portrait640"
+          :srcset="`${portrait320} 320w, ${portrait640} 640w, ${portrait960} 960w`"
+          sizes="(max-width: 600px) 120px, (max-width: 900px) 160px, 170px"
           alt="Porträt von Juliane Stoll"
+          width="960"
+          height="960"
+          decoding="async"
+          fetchpriority="high"
         />
         <div :class="s.heroText">
           <p :class="s.kicker">Über mich</p>
@@ -180,8 +188,14 @@ const boxSlicerImages = [
     <div :class="s.splitSection">
       <img
         :class="s.splitImage"
-        :src="portrait"
+        :src="portrait640"
+        :srcset="`${portrait320} 320w, ${portrait640} 640w, ${portrait960} 960w`"
+        sizes="(max-width: 900px) 100vw, 420px"
         alt="Natur und Begleitung"
+        width="960"
+        height="960"
+        loading="lazy"
+        decoding="async"
       />
       <div :class="s.splitText">
         <h2 :class="s.sectionTitle">Begleitung mit Herz und Struktur</h2>
@@ -212,6 +226,9 @@ const boxSlicerImages = [
           :class="s.avatar"
           :src="portrait"
           alt="Juliane Stoll"
+          width="1080"
+          height="1080"
+          decoding="async"
         />
       </div>
     </div>
