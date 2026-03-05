@@ -8,8 +8,9 @@
 
 .top {
   display: grid;
-  gap: 10px;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-md);
 }
 
 .title {
@@ -19,6 +20,7 @@
   font-family: var(--font-signature);
   background: transparent;
   text-shadow: none;
+  box-shadow: none;
 }
 
 .btn {
@@ -43,12 +45,11 @@
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
-  margin-top: 6px;
+  justify-self: end;
 }
 
 .intro {
-  display: grid;
-  gap: 6px;
+  min-width: 0;
 }
 
 .btnGhost {
@@ -207,6 +208,9 @@
   margin: 0 0 6px;
   font-size: 1.3rem;
   font-family: var(--font-signature);
+  background: transparent;
+  text-shadow: none;
+  box-shadow: none;
 }
 
 .sectionTitle {

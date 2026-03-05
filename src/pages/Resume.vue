@@ -184,15 +184,15 @@ const softSkills = [
         <p :class="s.muted">
           Kurzprofil, Berufserfahrung, Ausbildung & Kompetenzen
         </p>
-        <div :class="s.actions">
-          <RouterLink :class="s.btnGhost" to="/motivation">
-            Meine Motivation
-          </RouterLink>
-          <!-- Lege deine PDF in /public/resume.pdf ab -->
-          <a :class="s.btn" href="/resume.pdf" target="_blank" rel="noreferrer">
-            PDF herunterladen
-          </a>
-        </div>
+      </div>
+      <div :class="s.actions">
+        <RouterLink :class="s.btnGhost" to="/motivation">
+          Meine Motivation
+        </RouterLink>
+        <!-- Lege deine PDF in /public/resume.pdf ab -->
+        <a :class="s.btn" href="/resume.pdf" target="_blank" rel="noreferrer">
+          PDF herunterladen
+        </a>
       </div>
     </header>
 
